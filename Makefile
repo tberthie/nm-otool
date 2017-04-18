@@ -6,12 +6,12 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/20 22:18:00 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/18 13:50:37 by tberthie         ###   ########.fr        #
+#    Updated: 2017/04/18 15:19:44 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ONM = $(addsuffix .o, $(addprefix objs/nm/, main parse_32))
-OTOOL = $(addsuffix .o, $(addprefix objs/otool/, main))
+OTOOL = $(addsuffix .o, $(addprefix objs/otool/, main parse_32))
 
 NM = ft_nm
 TOOL = ft_otool
@@ -32,10 +32,10 @@ $(TOOL): $(OTOOL)
 	gcc -o $(TOOL) $(OTOOL) libft/libft.a
 
 objs/nm/%.o: nm/%.c
-	gcc -o $@ -c $< -I includes/nm -I libft -Weverything -Wno-pointer-arith
+	gcc -o $@ -c $< -I includes -I libft -Weverything -Wno-pointer-arith
 
 objs/otool/%.o: otool/%.c
-	gcc -o $@ -c $< -I includes/otool -I libft -Weverything
+	gcc -o $@ -c $< -I includes -I libft -Weverything -Wno-pointer-arith
 
 clean:
 	rm -rf objs
