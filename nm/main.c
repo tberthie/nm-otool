@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/26 17:59:41 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/01 16:38:26 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/18 13:53:47 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,35 @@
 #include "libft.h"
 
 #include <fcntl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+
+static void			nm(char *path, int fd)
+{
+	void			*data;
+	struct stat		stat;
+	size_t			len;
+	t_header		*header;
+
+	if (fstat(fd, &stat) == -1)
+		ft_printf(2, "ft_nm: %s: Failed to read file stats.\n", path);
+	else
+	{
+		len = (size_t)stat.st_size;
+		if ((data = mmap(0, len, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+			ft_printf(2, "ft_nm: %s: Failed to map file.\n", path);
+		else
+		{
+		/*	if ((header = (t_header*)data)->magic == MH_MAGIC_64)
+				parse_64(data + sizeof(t_header_64), data, header->ncmds);
+			else */if ((header = (t_header*)data)->magic == MH_MAGIC)
+				parse_32(data + sizeof(t_header), data, header->ncmds);
+			else
+				ft_printf(2, "ft_nm: %s: Not a valid object file.\n", path);
+			munmap(data, len);
+		}
+	}
+}
 
 int			main(int ac, char **av)
 {
