@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 15:17:08 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/18 16:31:52 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/19 22:10:21 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,10 @@ typedef struct segment_command		t_segment;
 
 typedef struct section_64			t_section_64;
 typedef struct section				t_section;
+
+void								parse_32(char *path, void *data,
+									void *origin, unsigned int size);
+void								parse_64(char *path, void *data,
+									void *origin, unsigned int size);
 
 #endif

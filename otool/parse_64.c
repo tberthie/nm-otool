@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_32.c                                         :+:      :+:    :+:   */
+/*   parse_64.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/19 22:09:02 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/19 22:10:32 by tberthie         ###   ########.fr       */
+/*   Created: 2017/04/19 22:08:54 by tberthie          #+#    #+#             */
+/*   Updated: 2017/04/19 22:11:55 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,29 @@ static void		dump(void *addr, unsigned char *data, unsigned int size)
 
 }
 
-static void		find_section(char *path, t_segment *seg, void *origin)
+static void		find_section(char *path, t_segment_64 *seg, void *origin)
 {
 	unsigned int	size;
-	t_section		*sec;
+	t_section_64		*sec;
 
 	ft_printf(1, "%s:\nContents of (__TEXT,__text) section\n", path);
-	sec = (void*)seg + sizeof(t_segment);
+	sec = (void*)seg + sizeof(t_segment_64);
 	size = seg->nsects;
 	while (ft_strcmp(sec->sectname, "__text") && size--)
-		sec += sizeof(t_section);
+		sec += sizeof(t_section_64);
 	if (size)
 		dump(sec->addr, origin + sec->offset, sec->size);
 }
 
-void			parse_32(char *path, void *data, void *origin,
+void			parse_64(char *path, void *data, void *origin,
 				unsigned int size)
 {
-	t_segment		*load;
+	t_segment_64		*load;
 
 	while (size--)
 	{
-		load = (t_segment*)data;
-		if (load->cmd == LC_SEGMENT && !ft_strcmp(load->segname, "__TEXT"))
+		load = (t_segment_64*)data;
+		if (load->cmd == LC_SEGMENT_64 && !ft_strcmp(load->segname, "__TEXT"))
 			find_section(path, load, origin);
 		data += load->cmdsize;
 	}
