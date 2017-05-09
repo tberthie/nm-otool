@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 16:13:50 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 02:38:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 02:38:42 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void			output(t_symbol **sym, char **sections)
 	while (sym[i])
 	{
 		if (sym[i]->value)
-			ft_printf("%08x ", sym[i]->value);
+			ft_printf("%016x ", sym[i]->value);
 		else
-			ft_print(1, "\t ");
+			ft_print(1, "\t\t ");
 		print_symbol(sym[i], sections);
 		ft_print(1, " %s\n", sym[i]->name);
 		i++;
@@ -56,7 +56,7 @@ static t_symbol		**parse_symbols(t_symtab *symtab, void *origin)
 	t_symbol		**syms;
 	t_symbol		*symbol;
 	unsigned int	nsyms;
-	t_list			*list;
+	t_list_64		*list;
 
 	syms = (t_symbol**)ft_parrnew();
 	nsyms = symtab->nsyms;
@@ -68,7 +68,7 @@ static t_symbol		**parse_symbols(t_symtab *symtab, void *origin)
 		symbol->type = list->n_type;
 		symbol->value = list->n_value;
 		ft_parrpush((void***)&syms, symbol);
-		list = (void*)list + sizeof(t_list);
+		list = (void*)list + sizeof(t_list_64);
 	}
 	return (syms);
 }
@@ -93,7 +93,7 @@ static t_symbol		**sort(t_symbol **sym)
 	return (sym);
 }
 
-void				parse_32(void *data, void *origin, unsigned int size)
+void				parse_64(void *data, void *origin, unsigned int size)
 {
 	t_load			*load;
 	char			**sections;

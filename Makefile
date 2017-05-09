@@ -6,12 +6,12 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/20 22:18:00 by tberthie          #+#    #+#              #
-#    Updated: 2017/04/19 22:11:10 by tberthie         ###   ########.fr        #
+#    Updated: 2017/05/09 02:32:41 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ONM = $(addsuffix .o, $(addprefix objs/nm/, main parse_32))
-OTOOL = $(addsuffix .o, $(addprefix objs/otool/, main parse_32 parse_64))
+ONM = $(addsuffix .o, $(addprefix objs/nm/, main parse_32 parse_64))
+OTOOL = $(addsuffix .o, $(addprefix objs/otool/, main parse_32 parse_64 utl))
 
 NM = ft_nm
 TOOL = ft_otool

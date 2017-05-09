@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 15:17:08 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/19 22:10:21 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/05/09 02:38:06 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void								parse_32(char *path, void *data,
 									void *origin, unsigned int size);
 void								parse_64(char *path, void *data,
 									void *origin, unsigned int size);
+void								hex_dump(unsigned char hex);
 
 #endif
