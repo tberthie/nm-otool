@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 16:13:50 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 02:38:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/06/02 13:15:12 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include <mach-o/nlist.h>
 
-static void			print_symbol(t_symbol *sym, char **sections)
+static void			print_symbol(t_symbol *sym, t_section **sections)
 {
 	unsigned char	typem;
 	char			cap;
@@ -24,7 +24,7 @@ static void			print_symbol(t_symbol *sym, char **sections)
 	typem = sym->type & N_TYPE;
 	cap = sym->type & N_EXT;
 	if (typem == N_SECT)
-		ft_print(1, cap ? "T" : "t");
+		ft_print(1, get_symbol(sym, sections, cap));
 	else if (typem == N_ABS)
 		ft_print(1, "A");
 	else if (typem == N_INDR)
@@ -33,7 +33,7 @@ static void			print_symbol(t_symbol *sym, char **sections)
 		ft_print(1, cap ? "U" : "u");
 }
 
-static void			output(t_symbol **sym, char **sections)
+static void			output(t_symbol **sym, t_section **sections)
 {
 	int		i;
 
@@ -43,7 +43,7 @@ static void			output(t_symbol **sym, char **sections)
 		if (sym[i]->value)
 			ft_printf("%08x ", sym[i]->value);
 		else
-			ft_print(1, "\t ");
+			ft_print(1, "         ");
 		print_symbol(sym[i], sections);
 		ft_print(1, " %s\n", sym[i]->name);
 		i++;
@@ -61,6 +61,7 @@ static t_symbol		**parse_symbols(t_symtab *symtab, void *origin)
 	syms = (t_symbol**)ft_parrnew();
 	nsyms = symtab->nsyms;
 	list = origin + symtab->symoff;
+	ft_printf("Symtab %p\n", (void*)origin + symtab->symoff);
 	while (nsyms--)
 	{
 		symbol = (t_symbol*)ft_m(sizeof(t_symbol));
@@ -96,16 +97,16 @@ static t_symbol		**sort(t_symbol **sym)
 void				parse_32(void *data, void *origin, unsigned int size)
 {
 	t_load			*load;
-	char			**sections;
+	t_section		**sections;
 
-	sections = (char**)ft_parrnew();
+	sections = (t_section**)ft_parrnew();
 	while (size--)
 	{
 		load = (t_load*)data;
 		if (load->cmd == LC_SYMTAB)
 			output(sort(parse_symbols((t_symtab*)load, origin)), sections);
-		// parse sections
+		if (load->cmd == LC_SEGMENT)
+			add_section_32(&sections, (t_seg*)load);
 		data += load->cmdsize;
 	}
-	ft_parrfree((void**)sections);
 }
