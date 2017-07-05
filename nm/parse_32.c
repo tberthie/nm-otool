@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/17 16:13:50 by tberthie          #+#    #+#             */
-/*   Updated: 2017/06/02 13:15:12 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/06/29 16:31:29 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_symbol		**parse_symbols(t_symtab *symtab, void *origin)
 	syms = (t_symbol**)ft_parrnew();
 	nsyms = symtab->nsyms;
 	list = origin + symtab->symoff;
-	ft_printf("Symtab %p\n", (void*)origin + symtab->symoff);
+	ft_printf("         SYMTAB %p\n", (void*)origin + symtab->symoff);
 	while (nsyms--)
 	{
 		symbol = (t_symbol*)ft_m(sizeof(t_symbol));
@@ -106,7 +106,7 @@ void				parse_32(void *data, void *origin, unsigned int size)
 		if (load->cmd == LC_SYMTAB)
 			output(sort(parse_symbols((t_symtab*)load, origin)), sections);
 		if (load->cmd == LC_SEGMENT)
-			add_section_32(&sections, (t_seg*)load);
+			add_section_32(origin, &sections, (t_seg*)load);
 		data += load->cmdsize;
 	}
 }

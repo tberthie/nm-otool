@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 16:37:48 by tberthie          #+#    #+#             */
-/*   Updated: 2017/06/02 12:38:55 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/07/05 15:12:33 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_section {
 void	parse_64(void *data, void *origin, unsigned int size);
 void	parse_32(void *data, void *origin, unsigned int size);
 
-void	add_section_32(t_section ***sections, t_seg *seg);
+void	add_section_32(void *origin, t_section ***sections, t_seg *seg);
 char	*get_symbol(t_symbol *sym, t_section **sections, char cap);
 
 #endif

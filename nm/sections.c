@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 19:37:50 by tberthie          #+#    #+#             */
-/*   Updated: 2017/06/02 13:15:06 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/07/05 15:11:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,13 @@ char			*get_symbol(t_symbol *sym, t_section **sections, char cap)
 	return (cap ? "S" : "s");
 }
 
-void			add_section_32(t_section ***sections, t_seg *seg)
+void			add_section_32(void *origin, t_section ***sections, t_seg *seg)
 {
 	t_section	*section;
+	struct section	*test;
+
+	test = (void*)seg + sizeof(struct segment_command);
+	printf("%30s %p\n", test->sectname, test->offset);
 
 	section = ft_m(sizeof(t_section));
 	if (!ft_strcmp(seg->segname, "__TEXT") ||

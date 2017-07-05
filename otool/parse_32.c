@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 22:09:02 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 02:37:34 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:17:01 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		dump(void *addr, unsigned char *data, unsigned int size)
 	{
 		hex_dump((unsigned char)*data++);
 		off--;
-		if (!off)
+		if (!off && size)
 		{
 			off = 16;
 			ft_print(1, "\n");

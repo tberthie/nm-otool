@@ -2,7 +2,7 @@
 
 make re -C ../
 rm -f their mine mine_err their_err 2>/dev/null
-TESTNM=1
+TESTNM=0
 TESTOTOOL=1
 
 if [ $TESTNM != 0 ]; then

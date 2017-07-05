@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 22:08:54 by tberthie          #+#    #+#             */
-/*   Updated: 2017/05/09 02:35:20 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/07/05 16:17:05 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static void		dump(void *addr, unsigned char *data, unsigned int size)
 	unsigned int	off;
 
 	off = 16;
-	ft_printf("%016x\t", (unsigned int)addr);
+	ft_printf("00000001%08x\t", (unsigned int)addr);
 	while (size--)
 	{
 		hex_dump((unsigned char)*data++);
 		off--;
-		if (!off)
+		if (!off && size)
 		{
 			off = 16;
 			ft_print(1, "\n");
-			ft_printf("%016x\t", (unsigned int)(addr += 16));
+			ft_printf("00000001%08x\t", (unsigned int)(addr += 16));
 		}
 	}
 	if (off != 16)

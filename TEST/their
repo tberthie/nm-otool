@@ -1,52 +1,19 @@
-         U ___error
-00001906 t ___x86.get_pc_thunk.bx
-00001000 T __mh_execute_header
-00002872 T _add_flag
-00002a51 T _add_list
-000025a3 T _clear_env
-000028dd T _clear_flags
-00002ac7 T _clear_list
-         U _close$UNIX2003
-00002605 T _create_env
-0000281b T _create_flag
-0000325a T _display_array
-         U _exit
-         U _free
-         U _fstat$INODE64
-000026cc T _ft_memcpy
-000031a5 T _ft_putstr
-000031c9 T _ft_putstr_fd
-00002703 T _ft_strcmp
-0000263e T _ft_strdup
-0000317d T _ft_strlen
-00002784 T _ft_strncmp
-00004040 S _g_error
-00002945 T _get_key
-00002b05 T _get_list
-00002a13 T _get_n_flag
-00002d18 T _init_error
-00002bde T _list_len
-00001891 T _main
-         U _malloc
-00002ca0 T _malloc_error
-         U _mmap$UNIX2003
-         U _munmap$UNIX2003
-00001cef T _nm_32
-000021aa T _nm_64
-000018e0 T _nm_archive
-00001dbe T _nm_fat
-         U _open$UNIX2003
-00002cca T _option_error
-00002c0a T _parse_error
-000031ee T _print_hexa
-         U _printf
-00002436 T _process_file
-00002552 T _process_list
-0000235a T _process_selection_file
-00001b9a T _read_segment_command
-00002051 T _read_segment_command64
-0000190a T _read_symtab
-00001de4 T _read_symtab64
-00002279 T _sort
-         U _write$UNIX2003
-         U dyld_stub_binder
+/bin/wait4path:
+Contents of (__TEXT,__text) section
+0000000100000d9e	55 48 89 e5 41 57 41 56 41 54 53 48 81 ec b0 00 
+0000000100000dae	00 00 49 89 f6 41 89 ff e8 03 01 00 00 89 c3 41 
+0000000100000dbe	83 ff 02 0f 85 90 00 00 00 48 c7 45 c0 00 00 00 
+0000000100000dce	00 c7 45 c8 f7 ff 01 00 c7 45 dc 00 00 00 00 48 
+0000000100000dde	c7 45 d4 00 00 00 00 48 c7 45 cc 00 00 00 00 48 
+0000000100000dee	8d 75 c0 ba 01 00 00 00 31 c9 45 31 c0 45 31 c9 
+0000000100000dfe	89 df e8 b3 00 00 00 83 f8 ff 74 65 49 8b 7e 08 
+0000000100000e0e	48 8d b5 30 ff ff ff e8 aa 00 00 00 85 c0 74 32 
+0000000100000e1e	4c 8d 7d c0 4c 8d a5 30 ff ff ff 31 f6 31 d2 41 
+0000000100000e2e	b8 01 00 00 00 45 31 c9 89 df 4c 89 f9 e8 78 00 
+0000000100000e3e	00 00 49 8b 7e 08 4c 89 e6 e8 78 00 00 00 85 c0 
+0000000100000e4e	75 d9 31 ff e8 55 00 00 00 48 8b 05 a2 01 00 00 
+0000000100000e5e	48 8b 38 49 8b 16 48 8d 35 bb 00 00 00 31 c0 eb 
+0000000100000e6e	28 48 8b 05 8a 01 00 00 48 8b 18 e8 28 00 00 00 
+0000000100000e7e	8b 38 e8 45 00 00 00 48 89 c1 48 8d 35 ba 00 00 
+0000000100000e8e	00 31 c0 48 89 df 48 89 ca e8 16 00 00 00 bf 01 
+0000000100000e9e	00 00 00 e8 06 00 00 00 
