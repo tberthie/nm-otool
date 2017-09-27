@@ -1,5 +1,2 @@
-< NM >
-a.out if no argument (man nm);
-check if for otool too;
-check sections (S/s...)
-.a files;
+( NM + OTOOL )
+.a files
