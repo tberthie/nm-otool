@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/18 15:16:20 by tberthie          #+#    #+#             */
-/*   Updated: 2017/07/05 17:45:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/09/27 17:31:57 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int					main(int ac, char **av)
 	int		i;
 
 	i = 1;
+	if (ac == 1)
+		ft_print(2, "ft_otool: Atleast one file must be specified\n");
 	while (i < ac)
 	{
 		if ((fd = open(av[i], O_RDONLY)) == -1)

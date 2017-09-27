@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/26 17:59:41 by tberthie          #+#    #+#             */
-/*   Updated: 2017/07/05 17:45:23 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/09/27 17:36:30 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,24 @@ static void			nm(char *path, int fd)
 	}
 }
 
+static void			no_args(void)
+{
+	int		fd;
+
+	if ((fd = open("a.out", O_RDONLY)) == -1)
+		ft_print(2, "ft_nm: a.out: No such file or directory\n");
+	else
+		nm("a.out", fd);
+}
+
 int					main(int ac, char **av)
 {
 	int		fd;
 	int		i;
 
 	i = 1;
+	if (ac == 1)
+		no_args();
 	while (i < ac)
 	{
 		if ((fd = open(av[i], O_RDONLY)) == -1)
