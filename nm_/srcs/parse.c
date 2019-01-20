@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:13:34 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/20 20:42:26 by tberthie         ###   ########.fr       */
+/*   Updated: 2019/01/20 21:51:55 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,19 @@ static void			parse_loader(t_file *file)
 		file->arch = 32;
 	else if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
 		file->arch = 64;
+/*	else if (!ft_memcmp(file->data, "!<arch>\n", 8))
+	{
+		t_arch		*arch;
+		size_t		size;
+	
+		arch = file->data + 8;
+		while (arch)
+		{
+			printf("[%16.s] - [%10.s]\n", arch->name, arch->size);
+			size = ft_readnbr(arch->size);
+			arch = (void*)arch + 60 + size;
+		}
+	}*/
 	else
 	{
 		error("%s: Invalid file type.", file->path);
