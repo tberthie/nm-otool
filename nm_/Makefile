@@ -5,25 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/02/20 22:18:00 by tberthie          #+#    #+#              #
-#    Updated: 2019/01/15 17:07:59 by tberthie         ###   ########.fr        #
+#    Created: 2019/01/15 13:34:07 by tberthie          #+#    #+#              #
+#    Updated: 2019/01/20 20:24:38 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all: nm otool
+EXEC = ../nm
 
-nm:
-	make -C nm_
+OBJS = $(addprefix objs/, $(addsuffix .o, \
+		main lib lib2 parse tools print symtab ))
 
-otool:
-	make -C otool_
+all: objs $(EXEC)
+
+objs:
+	mkdir objs
+
+$(EXEC): $(OBJS)
+	gcc -o $(EXEC) $(OBJS) -I includes
+
+objs/%.o: srcs/%.c
+	gcc -o $@ -c $< -Wall -Wextra -I includes
 
 clean:
-	make -C nm_ clean
-	make -C otool_ clean
+	rm -f $(EXEC)
 
-fclean: clean
-	make -C nm_ fclean
-	make -C otool_ fclean
+fclean:
+	rm -rf objs
 
 re: fclean all
