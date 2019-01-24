@@ -1,0 +1,74 @@
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(functions.o):
+                 U _allocate
+                 U _allocate_large
+                 U _exceeds_rlimit
+                 U _find_ptr_alloc
+                 U _find_ptr_zone
+0000000000000000 T _free
+                 U _free_ptr_alloc
+0000000000000280 S _g_zone
+                 U _get_size_type
+0000000000000050 T _malloc
+00000000000000c0 T _realloc
+                 U _realloc_ptr
+                 U _realloc_ptr_large
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(types.o):
+0000000000000000 T _get_size_type
+0000000000000050 T _get_type_size
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(allocate.o):
+00000000000002b0 T _allocate
+0000000000000340 T _allocate_large
+0000000000000110 T _allocate_zone_slot
+                 U _create_zone
+0000000000000000 T _find_available_zone
+                 U _g_zone
+                 U _getpagesize
+                 U _mmap
+                 U _store_zone
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(create.o):
+0000000000000000 T _create_zone
+                 U _get_type_size
+                 U _getpagesize
+                 U _mmap
+                 U _store_zone
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(free.o):
+00000000000002e0 T _find_ptr_alloc
+0000000000000270 T _find_ptr_zone
+00000000000000a0 T _free_alloc
+00000000000003a0 T _free_ptr_alloc
+0000000000000000 T _free_zone
+                 U _g_zone
+                 U _munmap
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(output.o):
+                 U _g_zone
+0000000000000240 t _print_allocs
+0000000000000170 t _print_large
+                 U _print_nbr_base
+0000000000000000 T _show_alloc_mem
+                 U _write
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(realloc.o):
+                 U _free_alloc
+                 U _free_zone
+                 U _get_size_type
+                 U _malloc
+                 U _memcopy
+                 U _min
+00000000000000e0 T _realloc_ptr
+0000000000000000 T _realloc_ptr_large
+
+/Users/tberthie/Projets/malloc/libft_malloc_x86_64_Darwin.so(tools.o):
+0000000000000200 T _exceeds_rlimit
+                 U _g_zone
+                 U _getrlimit
+00000000000001a0 T _memcopy
+0000000000000250 T _min
+0000000000000000 T _print_nbr_base
+00000000000000f0 T _store_zone
+                 U _write

@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 14:11:34 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/20 20:35:39 by tberthie         ###   ########.fr       */
+/*   Updated: 2019/01/24 17:33:36 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void				ft_arrpush_ascii(void ***dst, void *elem)
 	new[len++] = elem;
 	while (*tab)
 		new[len++] = *tab++;
-	free(*dst);
+//	free(*dst);
 	*dst = (void**)new;
 }

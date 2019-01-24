@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:04:45 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/20 20:54:43 by tberthie         ###   ########.fr       */
+/*   Updated: 2019/01/24 18:02:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char		get_sect(t_file *file, int offset, int ext)
 {
+	--offset;
 	if (file->sect[offset] == TEXT)
 		return ("Tt"[ext]);
 	else if (file->sect[offset] == DATA)
@@ -35,10 +36,8 @@ static char		get_symbol(t_file *file, t_list *list, unsigned int type,
 	else if (type == N_INDR)
 		return ("Ii"[ext]);
 	else if (type == N_SECT)
-	{
 		return (get_sect(file, file->arch == 32 ? list->n_sect :
-					((t_list_64*)list)->n_sect, ext));
-	}
+			((t_list_64*)list)->n_sect, ext));
 	return (0);
 }
 

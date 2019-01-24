@@ -6,14 +6,14 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 13:34:07 by tberthie          #+#    #+#              #
-#    Updated: 2019/01/20 21:53:58 by tberthie         ###   ########.fr        #
+#    Updated: 2019/01/21 13:40:58 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = ../nm
 
 OBJS = $(addprefix objs/, $(addsuffix .o, \
-		main lib lib2 parse tools print symtab ))
+		main lib lib2 parse tools print symtab archive ))
 
 all: objs $(EXEC)
 
