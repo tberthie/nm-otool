@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/15 13:36:10 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/24 17:36:00 by tberthie         ###   ########.fr       */
+/*   Created: 2019/01/25 13:56:44 by tberthie          #+#    #+#             */
+/*   Updated: 2019/01/25 16:48:28 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
-#include <stdio.h>
 
-int					main(int ac, char **av)
+void			parse_files(t_file **files)
 {
-	char			multi;
+	t_file		*file;
+	t_file		**objs;
 
-	multi = ac > 2;
-	if (ac == 1)
-		parse_file("a.out", 0);
-	while (ac-- >= 2)
-		parse_file(*++av, multi);
-	return (0);
+	while (*files)
+	{
+		file = *files++;
+		if (file->lib)
+		{
+			objs = ((t_lib*)file)->objs;
+			while (*objs)
+				parse_segments(*objs++);
+		}
+		else
+			parse_segments(file);
+	}
 }

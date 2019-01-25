@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 18:04:45 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/24 18:02:27 by tberthie         ###   ########.fr       */
+/*   Updated: 2019/01/25 16:59:14 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 static char		get_sect(t_file *file, int offset, int ext)
 {
-	--offset;
-	if (file->sect[offset] == TEXT)
+	int			*sect;
+
+	sect = (int*)file->payload;
+	if (sect[TEXT] == offset)
 		return ("Tt"[ext]);
-	else if (file->sect[offset] == DATA)
+	else if (sect[DATA] == offset)
 		return ("Dd"[ext]);
-	else if (file->sect[offset] == BSS)
+	else if (sect[BSS] == offset)
 		return ("Bb"[ext]);
-	else if (file->sect[offset] == COMMON)
+	else if (sect[COMMON] == offset)
 		return ("Cc"[ext]);
 	return ("Ss"[ext]);
 }
@@ -35,60 +37,62 @@ static char		get_symbol(t_file *file, t_list *list, unsigned int type,
 		return ("Aa"[ext]);
 	else if (type == N_INDR)
 		return ("Ii"[ext]);
-	else if (type == N_SECT)
-		return (get_sect(file, file->arch == 32 ? list->n_sect :
-			((t_list_64*)list)->n_sect, ext));
-	return (0);
+	return (get_sect(file, file->format == 32 ? list->n_sect :
+		((t_list_64*)list)->n_sect, ext));
 }
 
-void			parse_symtab_32(t_symtab *symtab, t_file *file)
+t_sym			**parse_symtab_32(t_symtab *symtab, t_file *file)
 {
-	t_symbol	*symbol;
+	t_sym		**syms;
+	t_sym		*symbol;
+	int			nsyms;
 	t_list		*list;
-	int			count;
-	char		symbol_c;
 
-	count = symtab->nsyms;
-	list = (void*)file->data + symtab->symoff;
-	while (count--)
+	nsyms = symtab->nsyms;
+	list = file->data + symtab->symoff;
+	syms = ft_memalloc(sizeof(void*));
+	*syms = 0;
+	while (nsyms--)
 	{
-		if (list->n_un.n_strx && (symbol_c = get_symbol(file, (t_list*)list,
-				list->n_type & N_TYPE, list->n_type & N_EXT ? 0 : 1)))
+		if (list->n_un.n_strx)
 		{
-			if (!(symbol = malloc(sizeof(t_symbol))))
-				error_exit("Malloc failed.", 0);
-			symbol->value = list->n_value;
-			symbol->symbol = symbol_c;
+			symbol = ft_memalloc(sizeof(t_sym));
 			symbol->name = ft_strdup(file->data + symtab->stroff +
 					list->n_un.n_strx);
-			ft_arrpush_ascii((void***)&(file->symtab), symbol);
+			symbol->value = list->n_value;
+			symbol->symbol = get_symbol(file, list, list->n_type & N_TYPE,
+					list->n_type & N_EXT ? 0 : 1);
+			ft_parrpush_syms(&syms, symbol);
 		}
 		list = (void*)list + sizeof(t_list);
 	}
+	return (syms);
 }
 
-void			parse_symtab_64(t_symtab *symtab, t_file *file)
+t_sym			**parse_symtab_64(t_symtab *symtab, t_file *file)
 {
-	t_symbol	*symbol;
+	t_sym		**syms;
+	t_sym		*symbol;
+	int			nsyms;
 	t_list_64	*list;
-	int			count;
-	char		symbol_c;
 
-	count = symtab->nsyms;
-	list = (void*)file->data + symtab->symoff;
-	while (count--)
+	nsyms = symtab->nsyms;
+	list = file->data + symtab->symoff;
+	syms = ft_memalloc(sizeof(void*));
+	*syms = 0;
+	while (nsyms--)
 	{
-		if (list->n_un.n_strx && (symbol_c = get_symbol(file, (t_list*)list,
-				list->n_type & N_TYPE, list->n_type & N_EXT ? 0 : 1)))
+		if (list->n_un.n_strx)
 		{
-			if (!(symbol = malloc(sizeof(t_symbol))))
-				error_exit("Malloc failed.", 0);
-			symbol->value = list->n_value;
-			symbol->symbol = symbol_c;
+			symbol = ft_memalloc(sizeof(t_sym));
 			symbol->name = ft_strdup(file->data + symtab->stroff +
 					list->n_un.n_strx);
-			ft_arrpush_ascii((void***)&(file->symtab), symbol);
+			symbol->value = list->n_value;
+			symbol->symbol = get_symbol(file, (t_list*)list,
+					list->n_type & N_TYPE, list->n_type & N_EXT ? 0 : 1);
+			ft_parrpush_syms(&syms, symbol);
 		}
 		list = (void*)list + sizeof(t_list_64);
 	}
+	return (syms);
 }

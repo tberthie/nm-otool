@@ -5,40 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/15 14:27:26 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/21 17:40:50 by tberthie         ###   ########.fr       */
+/*   Created: 2019/01/25 14:37:39 by tberthie          #+#    #+#             */
+/*   Updated: 2019/01/25 17:03:13 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-void			error(const char *format, const char *data)
+void				ft_parrpush_syms(t_sym ***addr, t_sym *elem)
 {
-	write(2, "error: ", 7);
-	while (*format)
-	{
-		if (*format == '%' && *(format + 1) == 's')
-		{
-			write(2, data, ft_strlen(data));
-			format += 2;
-		}
-		else
-			write(2, format++, 1);
-	}
-	write(2, "\n", 1);
-}
+	t_sym			**new;
+	t_sym			**tab;
+	size_t			len;
 
-void			error_exit(const char *format, const char *data)
-{
-	error(format, data);
-	exit(1);
-}
-
-size_t			get_file_size(int fd)
-{
-	struct stat	file_stats;
-
-	if (fstat(fd, &file_stats) != 0)
-		return (0);
-	return (file_stats.st_size);
+	tab = *addr;
+	len = 0;
+	while (tab[len])
+		len++;
+	new = ft_memalloc(sizeof(void*) * (len + 2));
+	new[len + 1] = 0;
+	len = 0;
+	while (*tab && ft_strcmp((*tab)->name, elem->name) >= 0)
+		new[len++] = *tab++;
+	new[len++] = elem;
+	while (*tab)
+		new[len++] = *tab++;
+	free(*addr);
+	*addr = new;
 }
