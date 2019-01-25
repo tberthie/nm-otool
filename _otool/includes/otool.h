@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files.c                                            :+:      :+:    :+:   */
+/*   otool.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/25 13:56:44 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/25 17:24:13 by tberthie         ###   ########.fr       */
+/*   Created: 2019/01/25 17:08:42 by tberthie          #+#    #+#             */
+/*   Updated: 2019/01/25 18:35:31 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
+#ifndef OTOOL_H
+# define OTOOL_H
 
-void			parse_files(t_file **files)
-{
-	t_file		*file;
-	t_file		**objs;
+# include "common.h"
 
-	while (*files)
-	{
-		file = *files++;
-		if (file->lib)
-		{
-			objs = ((t_lib*)file)->objs;
-			while (*objs)
-				parse_segments(*objs++);
-		}
-		else
-			parse_segments(file);
-	}
-}
+void			parse_file(t_file *file);
+void			parse_segments(t_file *file, const char *lib_path);
+void			parse_sections(void *data, t_file *file, const char *lib_path);
+
+#endif

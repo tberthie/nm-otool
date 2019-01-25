@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files.c                                            :+:      :+:    :+:   */
+/*   segments.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/25 13:56:44 by tberthie          #+#    #+#             */
-/*   Updated: 2019/01/25 17:24:13 by tberthie         ###   ########.fr       */
+/*   Created: 2019/01/25 13:58:25 by tberthie          #+#    #+#             */
+/*   Updated: 2019/01/25 18:03:32 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
+#include "otool.h"
 
-void			parse_files(t_file **files)
+void				parse_segments(t_file *file, const char *lib_path)
 {
-	t_file		*file;
-	t_file		**objs;
+	t_cmd			*cmd;
+	size_t			cmds;
 
-	while (*files)
+	cmds = ((t_header*)file->data)->ncmds;
+	cmd = (t_cmd*)(file->data + (file->format == 32 ? sizeof(t_header) :
+				sizeof(t_header_64)));
+	while (cmds--)
 	{
-		file = *files++;
-		if (file->lib)
-		{
-			objs = ((t_lib*)file)->objs;
-			while (*objs)
-				parse_segments(*objs++);
-		}
-		else
-			parse_segments(file);
+		if (cmd->cmd == LC_SEGMENT || cmd->cmd == LC_SEGMENT_64)
+			parse_sections(cmd, file, lib_path);
+		cmd = (void*)cmd + cmd->cmdsize;
 	}
 }
